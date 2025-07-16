@@ -12,15 +12,15 @@
                 <td>{{ question.id }}</td>
             </tr>
             <tr>
-                <th>QuestionText</th>
+                <th>Question</th>
                 <td>{{ question.questionText }}</td>
             </tr>
             <tr>
-                <th>Choices</th>
+                <th>Choix</th>
                 <td>{{ question.choices ? question.choices|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>CorrectAnswer</th>
+                <th>Réponse correct</th>
                 <td>{{ question.correctAnswer }}</td>
             </tr>
         </tbody>

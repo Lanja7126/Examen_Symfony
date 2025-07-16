@@ -4,11 +4,11 @@
 
     <label>Choix multiples</label>
     <ul id="choices-list"
-        data-prototype="{{ form_widget(form.choices.vars.prototype)|e('html_attr') }}">
+        data-prototype="<li>{{ form_widget(form.choices.vars.prototype)|e('html') }}</li>">
         {% for choice in form.choices %}
             <li>{{ form_widget(choice) }}</li>
         {% endfor %}
-    </ul>
+    </ul>   
     <button type="button" id="add-choice" class="btn btn-secondary mb-3">Ajouter un choix</button>
 
     {{ form_row(form.correctAnswer) }}
@@ -22,7 +22,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const choicesList = document.getElementById('choices-list');
     const addButton = document.getElementById('add-choice');
-    let index = choicesList.children.length;
+    let index = choicesList.querySelectorAll('input').length;
 
     addButton.addEventListener('click', () => {
         const prototype = choicesList.dataset.prototype;
@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         const newForm = prototype.replace(/__name__/g, index);
-        const newLi = document.createElement('li');
-        newLi.innerHTML = newForm;
-        choicesList.appendChild(newLi);
+        choicesList.insertAdjacentHTML('beforeend', newForm);
         index++;
     });
 });
