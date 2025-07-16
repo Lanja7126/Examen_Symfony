@@ -21,12 +21,12 @@ class QuestionType extends AbstractType
                 'attr' => ['placeholder' => 'Entrez l\'intitulé de la question'],
             ])
             ->add('choices', CollectionType::class, [
-                'label' => 'Choix possibles',
                 'entry_type' => TextType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
                 'prototype' => true,
+                'label' => 'Choix multiples',
             ])
             ->add('correctAnswer', TextType::class, [
                 'label' => 'Réponse correcte',

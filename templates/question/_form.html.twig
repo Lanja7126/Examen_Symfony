@@ -1,4 +1,40 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_row(form.questionText) }}
+
+    <label>Choix multiples</label>
+    <ul id="choices-list"
+        data-prototype="{{ form_widget(form.choices.vars.prototype)|e('html_attr') }}">
+        {% for choice in form.choices %}
+            <li>{{ form_widget(choice) }}</li>
+        {% endfor %}
+    </ul>
+    <button type="button" id="add-choice" class="btn btn-secondary mb-3">Ajouter un choix</button>
+
+    {{ form_row(form.correctAnswer) }}
+    {{ form_row(form.quiz) }}
+
+    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const choicesList = document.getElementById('choices-list');
+    const addButton = document.getElementById('add-choice');
+    let index = choicesList.children.length;
+
+    addButton.addEventListener('click', () => {
+        const prototype = choicesList.dataset.prototype;
+        if (!prototype) {
+            alert("Prototype manquant pour les choix !");
+            return;
+        }
+        const newForm = prototype.replace(/__name__/g, index);
+        const newLi = document.createElement('li');
+        newLi.innerHTML = newForm;
+        choicesList.appendChild(newLi);
+        index++;
+    });
+});
+</script>
